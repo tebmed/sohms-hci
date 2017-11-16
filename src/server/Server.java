@@ -1,28 +1,31 @@
 package server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
+import java.net.UnknownHostException;
 
 public class Server {
-
    public static void main(String[] args) {
-	   	try {
-	   		ServerSocket sSocket = new ServerSocket(8001);
-	   		boolean isStopped = false;
-	   		while(!isStopped){
-	   		    Socket clientSocket = sSocket.accept();
-	   		    PrintWriter out =
-                     new PrintWriter(clientSocket.getOutputStream(), true);
-                 out.println(new Date().toString());
-
-	   		    //do something with clientSocket
-	   		}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	   ServerSocket echoSocket = null;
+       PrintWriter out = null;
+       BufferedReader in = null;
+       try {
+           echoSocket = new ServerSocket(8003);
+           while(true) {
+	           Socket cli = echoSocket.accept();
+	           out = new PrintWriter(cli.getOutputStream(), true);
+	           in = new BufferedReader(new InputStreamReader(cli.getInputStream()));
+	           out.println("Hello Server!");
+	           System.out.println(in.readLine());
+           }
+       } catch (UnknownHostException e) {
+           System.err.println("Host Unknown");System.exit(1);
+       } catch (IOException e) {
+           System.err.println("Couldn't get I/O for the connection.");System.exit(1);
+       }
    }
 }

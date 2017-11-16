@@ -1,9 +1,13 @@
 // Chargement de socket.io
-var io = io.connect("http://localhost:8001");
+var io = io("http://localhost:8003", {'reconnect': true});
 
-// Quand un client se connecte, on le note dans la console
-io.on('connection', function (socket) {
-    console.log('Un client est connecté !');
+io.on('connect', function (data) {  
+    console.log('connected: ' + data);
+    io.send(1);
+});
+
+io.on("message", function (data) {
+    console.log('message: ' + data);
 });
 
 var app = new Vue({
@@ -13,6 +17,8 @@ var app = new Vue({
     },
     methods: {
         test: function(data) {
+        	io.connect("http://localhost:8003", {'reconnect': true});
+        	io.emit('faitUneAlerte2', 'Je suis fou');
             console.log("here" + data);
         }
     }
