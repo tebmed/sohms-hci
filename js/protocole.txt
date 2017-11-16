@@ -1,0 +1,8 @@
+Protocole:
+
+IHM -> SoHMS    |   IHM <- SoHMS
+1: clear        |   1: clear:ok
+2: init: {}     |   2: init:ok
+3: order:$id:{} |   3: order:$id:ok
+                |   4: time:$time:$speed // Ca ne foncitonne pas comme ca !!! saut dans le temps..
+                |   5: error:$message

@@ -1,0 +1,59 @@
+!SESSION 2017-11-07 22:16:36.617 -----------------------------------------------
+eclipse.buildId=4.6.1.M20160907-1200
+java.version=1.8.0_101
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/quemard/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/quemard/.eclipse_keyring
+
+!ENTRY org.eclipse.ui 2 0 2017-11-07 22:17:33.620
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2017-11-07 22:17:33.620
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.emf.facet.custom.ui', id='org.eclipse.emf.facet.ui.loadCustomization', categoryId='org.eclipse.emf.facet.widgets.table.command.category'
+!SUBENTRY 1 org.eclipse.ui 2 0 2017-11-07 22:17:33.620
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.emf.facet.efacet.ui', id='org.eclipse.emf.facet.efacet.ui.loadFacet', categoryId='org.eclipse.emf.facet.widgets.table.command.category'
+!SUBENTRY 1 org.eclipse.ui 2 0 2017-11-07 22:17:33.620
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.emf.facet.efacet.ui', id='org.eclipse.emf.facet.efacet.ui.saveStructuralFeatureInstanceModel', categoryId='org.eclipse.emf.facet.widgets.table.command.category'
+!SUBENTRY 1 org.eclipse.ui 2 0 2017-11-07 22:17:33.620
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.emf.facet.efacet.ui', id='org.eclipse.emf.facet.efacet.ui.setStructuralFeatureInstanceResource', categoryId='org.eclipse.emf.facet.widgets.table.command.category'
+
+!ENTRY org.eclipse.ui 2 0 2017-11-07 22:17:37.097
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2017-11-07 22:17:37.097
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.emf.facet.custom.ui', id='org.eclipse.emf.facet.ui.loadCustomization', categoryId='org.eclipse.emf.facet.widgets.table.command.category'
+!SUBENTRY 1 org.eclipse.ui 2 0 2017-11-07 22:17:37.097
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.emf.facet.efacet.ui', id='org.eclipse.emf.facet.efacet.ui.loadFacet', categoryId='org.eclipse.emf.facet.widgets.table.command.category'
+!SUBENTRY 1 org.eclipse.ui 2 0 2017-11-07 22:17:37.097
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.emf.facet.efacet.ui', id='org.eclipse.emf.facet.efacet.ui.saveStructuralFeatureInstanceModel', categoryId='org.eclipse.emf.facet.widgets.table.command.category'
+!SUBENTRY 1 org.eclipse.ui 2 0 2017-11-07 22:17:37.097
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.emf.facet.efacet.ui', id='org.eclipse.emf.facet.efacet.ui.setStructuralFeatureInstanceResource', categoryId='org.eclipse.emf.facet.widgets.table.command.category'
+
+!ENTRY org.eclipse.core.net 1 0 2017-11-07 22:17:43.086
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface 2 0 2017-11-07 22:17:48.277
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-11-07 22:17:48.277
+!MESSAGE A conflict occurred for ALT+COMMAND+T:
+Binding(ALT+COMMAND+T,
+	ParameterizedCommand(Command(pl.szpinda.plugin.tomcat.commands.tomcatStartStop,Tomcat start,stop,
+		,
+		Category(pl.szpinda.plugin.tomcat.commands.category.key,Tomcat keys,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@763ddfc3,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+COMMAND+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.refactor.quickMenu,Show Refactor Quick Menu,
+		Shows the refactor quick menu,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7010c9e4,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,cocoa,system)
+
+!ENTRY com.google.gdt.eclipse.suite 1 0 2017-11-07 22:18:06.451
+!MESSAGE Registering: com.google.appengine.eclipse.sdkbundle_1.9.34
+
+!ENTRY com.google.gdt.eclipse.suite 1 0 2017-11-07 22:18:07.561
+!MESSAGE Registering: com.google.gwt.eclipse.sdkbundle_2.7.0
