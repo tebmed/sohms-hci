@@ -1,87 +1,57 @@
-// Chargement de socket.io
-var io = io("http://localhost:8003", {'reconnect': true});
+// Connection with websocket on server
+var connection = new WebSocket('ws://localhost:8003');
 
-io.on('connect', function (data) {  
-    console.log('connected: ' + data);
-    io.send(1);
-});
+connection.onopen = function () {
+  connection.send('Ping');
+};
 
-io.on("message", function (data) {
-    console.log('message: ' + data);
-});
+connection.onmessage = function (e) {
+    console.log("Server: "+e.data);
+};
+
+connection.onerror = function (error) {
+    console.log("WS error: "+error);
+};
+
+
+const Scenarios = { 
+    template: '#scenarios',
+    mounted: function() {
+        var scope = this;
+
+        $.ajax({
+            method: "GET",
+            url: "js/scenarios/"+ this.$route.params.filename + ".json",
+            success: (data) => {
+                CodeMirror($('#editor')[0], {
+                    value: data,
+                    mode:  "javascript",
+                    theme: "dracula",
+                    lineNumbers: true
+                });
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+    },
+    data: () => { return { scenario: null } }
+};
+const Atelier = { template: '<h1>Atelier</h1>' }
+
+const routes = [
+    { path: '/scenarios/:filename', component: Scenarios },
+    { path: '/scenarios', component: Scenarios },
+    { path: '/atelier', component: Atelier }
+]
+const router = new VueRouter({
+    routes
+})
 
 var app = new Vue({
+    router,
     el: '#app',
     data: {
-        
-    },
-    methods: {
-        test: function(data) {
-        	io.connect("http://localhost:8003", {'reconnect': true});
-        	io.emit('faitUneAlerte2', 'Je suis fou');
-            console.log("here" + data);
-        }
+        currentRoute: window.location.pathname
     }
 });
-
-// Fichier de conf (ressource)
-// origin: origine de point d'ancrage de la piece
-// matrix: Forme de la piece
-// Static, dossier des pieces disponibles
-/*
-{
-    origin: {
-        x: 1,
-        y: 1
-    },
-    matrix: [
-        [1,0,0],
-        [1,0,0],
-        [1,1,1]
-    ]
-}
-
-// Fichier conf pour un agv
-// la position coresspond a l'endroit de départ de l'agv, le "3" correspond a une portion du parcours
-// battery, pourcentage de battery de l'agv
-{
-    position: 3,
-    battery: 40
-}
-
-// Ressources correspond au différentes ressources mise en place pour le scénario.
-// Peuvent-être des "I_comp", "L_comp"... ainsi que des agv
-{
-    ressources:[
-        {
-            type: 1,
-            nb: 3,
-            conf: "../.."
-        }
-    ],
-    orders: [
-        {
-            id: 1,
-            start: 0,
-            products_list: [
-                {
-                    id: 1,
-                    instructions: [
-                        {
-                            type: 1,
-                            position: {
-                                x: 2,
-                                y: 2,
-                                d: 'w'
-                            }
-                        },
-                        {
-                            type: 2,
-                            nb: 2
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}*/

@@ -1,0 +1,163 @@
+{
+    "ressources": [
+        {
+            "id": 1,
+            "nb": 1,
+            "services": [
+                1, 2
+            ]
+        },
+        {
+            "id": 2,
+            "nb": 1,
+            "services": [
+                3, 4, 6
+            ]
+        },
+        {
+            "id": 3,
+            "nb": 1,
+            "services": [
+                3, 4, 7
+            ]
+        },
+        {
+            "id": 4,
+            "nb": 1,
+            "services": [
+                5, 6, 7
+            ]
+        },
+        {
+            "id": 5,
+            "nb": 1,
+            "services": [
+                8
+            ]
+        },
+        {
+            "id": 6,
+            "nb": 1,
+            "services": [
+                9
+            ]
+        },
+        {
+            "id": 7,
+            "nb": 1,
+            "services": []
+        }
+    ],
+    "services": [
+        {
+            "id": 1,
+            "operations": {
+                "plateLoading": {
+                    "time": 10
+                }
+            }
+        },
+        {
+            "id": 2,
+            "operations": {
+                "productUnloading": {
+                    "time": 10
+                }
+            }
+        },
+        {
+            "id": 3,
+            "operations": {
+                "axis": {
+                    "time": 20
+                }
+            }
+        },
+        {
+            "id": 4,
+            "operations": {
+                "rComp": {
+                    "time": 20
+                }
+            }
+        },
+        {
+            "id": 5,
+            "operations": {
+                "iComp": {
+                    "time": 20
+                }
+            }
+        },
+        {
+            "id": 6,
+            "operations": {
+                "lComp": {
+                    "time": 20
+                }
+            }
+        },
+        {
+            "id": 7,
+            "operations": {
+                "screwComp": {
+                    "time": 20
+                }
+            }
+        },
+        {
+            "id": 8,
+            "operations": {
+                "inspection": {
+                    "time": 5
+                }
+            }
+        },
+        {
+            "id": 8,
+            "operations": {
+                "recovery": {
+                    "time": 60
+                }
+            }
+        }
+    ],
+    "perturbations": [
+        {
+            "trigger": "order:1:ok",
+            "action": "ressource:{id: 7, nb: 1, services: [3, 4, 5, 6] }"
+        }
+    ],
+    "orders": [
+        {
+            "id": 1,
+            "products": [
+                1, 2, 3
+            ]
+        },
+        {
+            "id": 2,
+            "products": [
+                3, 1, 2
+            ]
+        }
+    ],
+    "products": [
+        {
+            "type": 1,
+            "description": "A",
+            "nb": 3
+        },
+        {
+            "type": 2,
+            "description": "B",
+            "nb": 1
+        },
+        {
+            "type": 3,
+            "description": "C",
+            "nb": 5
+        }
+    ],
+    "layoutSpec": {}
+}
