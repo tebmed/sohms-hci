@@ -13,20 +13,24 @@ connection.onerror = function (error) {
     console.log("WS error: "+error);
 };
 
-/*
-Vue.component('navigator', {
-    props: ['items', 'click'],
-    template: '<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">\
-                    <ul class="nav nav-pills flex-column">\
-                        <li class="nav-item" v-for="item in items">\
-                            <a class="nav-link" style="cursor: pointer;" href="#/scenarios" v-bind:class="{ active: item.name === selected }" @click="click">Scenario {{ item.name }}</a>\
-                        </li>\
-                    </ul>\
-                </nav>',
-    data: () => {
-        return { selected: null }
+const protocole = {
+    clear: function() {
+        connection.send('clear')
+    },
+    init: function(scenario) {
+        connection.send('init:' + JSON.stringify(scenario));
     }
-})*/
+}
+
+
+Vue.component('navigator', {
+    props: {
+        items: Array,
+        click: Function,
+        selected: String
+    },
+    template: '#navigator'
+})
 
 const Scenarios = { 
     template: '#scenarios',
@@ -57,11 +61,16 @@ const Scenarios = {
                         theme: "dracula",
                         lineNumbers: true
                     });
+                    this.scenario = JSON.parse(data);
                 },
                 error: (err) => {
                     console.log(err);
                 }
             });
+        },
+        runScenarioSelected: function() {
+            protocole.clear();
+            protocole.init(this.scenario);
         }
     },
     data: () => { 
@@ -82,11 +91,11 @@ const Scenarios = {
         } 
     }
 };
-const Atelier = { template: '<h1>Atelier</h1>' }
+const Workshop = { template: '<h1>Workshop</h1>' }
 
 const routes = [
     { path: '/scenarios', component: Scenarios },
-    { path: '/atelier', component: Atelier }
+    { path: '/workshop', component: Workshop }
 ]
 const router = new VueRouter({
     routes

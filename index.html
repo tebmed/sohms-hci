@@ -32,7 +32,7 @@
                                 <router-link class="nav-link" to="/scenarios">Scenarios<span class="sr-only">(current)</span></router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link class="nav-link" to="/atelier">Atelier</router-link>
+                                <router-link class="nav-link" to="/workshop">Workshop</router-link>
                             </li>
                         </ul>
                     </div>
@@ -45,14 +45,7 @@
 
         <script type="text/x-template" id="scenarios">
             <div class="row">
-                <!--<navigator items='$scenarios' click="loadScenario(item.name)"></navigator>-->
-                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item" v-for="item in scenarios">
-                            <a class="nav-link" style="cursor: pointer;" href="#/scenarios" v-bind:class="{ active: item.name === selected }" @click="loadScenario(item.name)">Scenario {{ item.name }}</a>
-                        </li>
-                    </ul>
-                </nav>
+                <navigator :items='scenarios' :click="loadScenario" :selected="selected"></navigator>
                 
                 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
                     <div>
@@ -62,12 +55,22 @@
                                 <div id="editor"></div>
                             </div>
                             <div class="col-sm-12 col-md-3">
-                                <button>Bouton</button>
+                                <button @click="runScenarioSelected">Run scenario</button>
                             </div>
                         </div>
                     </div>
                 </main>
             </div>
+        </script>
+
+        <script type="text/x-template" id="navigator">
+            <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item" v-for="item in items">
+                        <a class="nav-link" style="cursor: pointer;" href="#/scenarios" v-bind:class="{ active: item.name === selected }" @click="click(item.name)">Scenario {{ item.name }}</a>
+                    </li>
+                </ul>
+            </nav>
         </script>
     </body>
 </html>
