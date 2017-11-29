@@ -29,10 +29,10 @@
                     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" @click="goToScreen(1)">Scenarios<span class="sr-only">(current)</span></a>
+                                <router-link class="nav-link" to="/scenarios">Scenarios<span class="sr-only">(current)</span></router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" @click="goToScreen(2)">Atelier</a>
+                                <router-link class="nav-link" to="/atelier">Atelier</router-link>
                             </li>
                         </ul>
                     </div>
@@ -43,17 +43,15 @@
             </div>
         </div>
 
-        <div @if="route === 1">
+        <script type="text/x-template" id="scenarios">
             <div class="row">
+                <!--<navigator items='$scenarios' click="loadScenario(item.name)"></navigator>-->
                 <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-                  <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                      <a class="nav-link active" to="/scenarios/ps1">Scenario PS#1<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Scenario PS#2</a>
-                    </li>
-                  </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item" v-for="item in scenarios">
+                            <a class="nav-link" style="cursor: pointer;" href="#/scenarios" v-bind:class="{ active: item.name === selected }" @click="loadScenario(item.name)">Scenario {{ item.name }}</a>
+                        </li>
+                    </ul>
                 </nav>
                 
                 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
@@ -61,8 +59,7 @@
                         <h1>Scenarios</h1>
                         <div class="row">
                             <div class="col-sm-12 col-md-9">
-                                <div id="editor">
-                                </div>
+                                <div id="editor"></div>
                             </div>
                             <div class="col-sm-12 col-md-3">
                                 <button>Bouton</button>
@@ -71,6 +68,6 @@
                     </div>
                 </main>
             </div>
-        </div>
+        </script>
     </body>
 </html>

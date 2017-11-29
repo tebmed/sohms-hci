@@ -1,17 +1,12 @@
 package server;
 
-import org.java_websocket.WebSocket;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.server.WebSocketServer;
-
 import java.net.InetSocketAddress;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.json.*;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.java_websocket.WebSocket;
+import org.java_websocket.handshake.ClientHandshake;
+import org.java_websocket.server.WebSocketServer;
 
 public class WebsocketServer extends WebSocketServer {
 
@@ -40,7 +35,7 @@ public class WebsocketServer extends WebSocketServer {
     public void onMessage(WebSocket conn, String message) {
         System.out.println("Message from client: " + message);
         
-        String[] mes = message.split(":\\{");
+       /* String[] mes = message.split(":\\{");
         
         for (String m : mes) {
         	System.out.println(m);
@@ -53,7 +48,7 @@ public class WebsocketServer extends WebSocketServer {
         	//System.out.println(json.get("ressources"));
 		} catch (ParseException e) {
 			
-		}
+		}*/
         for (WebSocket sock : conns) {
             sock.send(message);
         }
