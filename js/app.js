@@ -32,36 +32,38 @@ Vue.component('navigator', {
     template: '#navigator'
 })
 
-const Scenarios = { 
+const Scenarios = {
     template: '#scenarios',
     mounted: function() {
-
         // Change selected item
         this.selected = this.scenarios[0].name;
         this.loadScenario(this.scenarios[0].name);
     },
     methods: {
         loadScenario: function(filename) {
-            
+
             // Change selected item
             this.selected = filename;
 
             var editor = $("#editor");
-            if (editor.children()) 
+            if (editor.children())
                 editor.children().remove();
-            var scope = this;
 
             $.ajax({
                 method: "GET",
                 url: "js/scenarios/"+ filename + ".json",
                 success: (data) => {
-                    CodeMirror($('#editor')[0], {
-                        value: data,
-                        mode:  "javascript",
+					if (typeof data == "string") {
+						data = JSON.parse(data);
+					}
+                    this.code = CodeMirror($('#editor')[0], {
+                        value: JSON.stringify(data,null,4),
+                        mode:  "application/json",
                         theme: "dracula",
-                        lineNumbers: true
+						lint: true,
+                        lineNumbers: true,
+						gutters: ['CodeMirror-lint-markers']
                     });
-                    this.scenario = JSON.parse(data);
                 },
                 error: (err) => {
                     console.log(err);
@@ -70,25 +72,18 @@ const Scenarios = {
         },
         runScenarioSelected: function() {
             protocole.clear();
-            protocole.init(this.scenario);
+            protocole.init(this.code.getValue());
         }
     },
-    data: () => { 
-        return { 
-            scenario: null,
+    data: () => {
+        return {
             scenarios: [
-                {
-                    name: "ps1"
-                },
-                {
-                    name: "ps2"
-                },
-                {
-                    name: "ps3"
-                }
+				{ name: "ps1" },
+                { name: "ps2" },
+                { name: "ps3" }
             ],
             selected: null
-        } 
+        }
     }
 };
 const Workshop = { template: '<h1>Workshop</h1>' }
