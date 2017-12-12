@@ -25,18 +25,18 @@
     "services": [
         {
             "id_s": 1,
-            "name_s":deplacement,
-            "path_s": random/deplacement1.java
+            "name_s":"deplacement",
+            "path_s": "random/deplacement1.java"
         },
         {
             "id_s": 2,
-            "name_s":peindre,
-            "path_s": random/peindre1.java
+            "name_s":"peindre",
+            "path_s": "random/peindre1.java"
         },
         {
             "id_s": 3,
-            "name_s":souder,
-            "path_s": random/souder1.java
+            "name_s":"souder",
+            "path_s": "random/souder1.java"
         }
     ],
     "perturbations": [
