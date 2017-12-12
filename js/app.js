@@ -21,12 +21,12 @@ connection.onerror = function (error) {
 
 const protocole = {
     clear: function() {
-        connection.send('clear')
+        connection.send('clear');
     },
     init: function(scenario) {
         connection.send('init:' + JSON.stringify(scenario));
     }
-}
+};
 
 
 Vue.component('navigator', {
@@ -38,40 +38,38 @@ Vue.component('navigator', {
     template: '#navigator'
 })
 
-const Scenarios = { 
+const Scenarios = {
     template: '#scenarios',
     mounted: function() {
-
         // Change selected item
         this.selected = this.scenarios[0].name;
         this.loadScenario(this.scenarios[0].name);
     },
     methods: {
         loadScenario: function(filename) {
-            
+
             // Change selected item
             this.selected = filename;
 
             var editor = $("#editor");
-            
-            if (editor.children()) 
+            if (editor.children())
                 editor.children().remove();
-            var scope = this;
 
             $.ajax({
                 method: "GET",
                 url: "js/scenarios/"+ filename + ".json",
                 success: (data) => {
-                    if (typeof data == "string") {
-                        data = JSON.parse(data);
-                    }
-                    CodeMirror($('#editor')[0], {
+					if (typeof data == "string") {
+						data = JSON.parse(data);
+					}
+                    this.code = CodeMirror($('#editor')[0], {
                         value: JSON.stringify(data,null,4),
-                        mode:  "javascript",
+                        mode:  "application/json",
                         theme: "dracula",
-                        lineNumbers: true
+						lint: true,
+                        lineNumbers: true,
+						gutters: ['CodeMirror-lint-markers']
                     });
-                    this.scenario = data;
                 },
                 error: (err) => {
                     console.log(err);
@@ -80,28 +78,20 @@ const Scenarios = {
         },
         runScenarioSelected: function() {
             protocole.clear();
-            protocole.init(this.scenario);
+            protocole.init(this.code.getValue());
+            app.scenarioRun = JSON.parse(this.code.getValue());
         }
     },
-    data: () => { 
-        return { 
-            scenario: null,
+    data: () => {
+        return {
             scenarios: [
-                {
-                    name: "ps0"
-                },
-                {
-                    name: "ps1"
-                },
-                {
-                    name: "ps2"
-                },
-                {
-                    name: "ps3"
-                }
+                { name: "ps0" },
+				{ name: "ps1" },
+                { name: "ps2" },
+                { name: "ps3" }
             ],
             selected: null
-        } 
+        }
     }
 };
 const Workshop = { 
@@ -109,9 +99,9 @@ const Workshop = {
     methods: {
 
     },
-    data: () => {
-        return {
-            truc: null
+    computed: {
+        scenarioRun: function() {
+            return app ? app.scenarioRun : null;
         }
     }
 };
@@ -130,7 +120,8 @@ var app = new Vue({
     data: {
         filename: null,
         logs: [],
-        indexLogs: 0
+        indexLogs: 0,
+        scenarioRun: null
     },
     computed: {
         moment: function() {
