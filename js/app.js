@@ -61,6 +61,8 @@ const Scenarios = {
             if (editor.children())
                 editor.children().remove();
 
+			var self = this;
+
             $.ajax({
                 method: "GET",
                 url: "js/scenarios/"+ filename + ".json",
@@ -74,14 +76,21 @@ const Scenarios = {
                         theme: "dracula",
 						lint: true,
                         lineNumbers: true,
-						gutters: ['CodeMirror-lint-markers']
-                    });
+						gutters: ['CodeMirror-lint-markers'],
+                    })
+					this.code.on('changes',function() {
+						self.verifyScenario();
+					});
+					self.verifyScenario();
                 },
                 error: (err) => {
                     console.log(err);
                 }
             });
         },
+		verifyScenario: function() {
+			this.errors = Janet.validate(this.code.getValue(),template);
+		},
         runScenarioSelected: function() {
             protocole.clear();
             protocole.init(this.code.getValue());
@@ -104,11 +113,12 @@ const Scenarios = {
                 { name: "ps2" },
                 { name: "ps3" }
             ],
-            selected: null
+            selected: null,
+			errors: true
         }
     }
 };
-const Workshop = { 
+const Workshop = {
     template: '#workshop',
     methods: {
         deleteOrder: function(index) {
