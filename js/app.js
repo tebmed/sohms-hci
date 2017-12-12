@@ -12,7 +12,7 @@ connection.onmessage = function (e) {
             filename: app.filename
         }
     });
-    app.logs += e.data;
+    app.logs[app.indexLogs++] = e.data;
 };
 
 connection.onerror = function (error) {
@@ -111,7 +111,7 @@ const Workshop = {
     },
     data: () => {
         return {
-            logs: null
+            truc: null
         }
     }
 };
@@ -129,7 +129,8 @@ var app = new Vue({
     el: '#app',
     data: {
         filename: null,
-        logs: null
+        logs: [],
+        indexLogs: 0
     },
     computed: {
         moment: function() {
