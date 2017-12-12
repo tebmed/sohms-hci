@@ -13,6 +13,9 @@ connection.onmessage = function (e) {
         }
     });
     app.logs[app.indexLogs++] = e.data;
+    if (e.data === "order:1:end") {
+        app.scenarioRun.orders[0].status = "end";
+    }
 };
 
 connection.onerror = function (error) {
@@ -25,6 +28,9 @@ const protocole = {
     },
     init: function(scenario) {
         connection.send('init:' + JSON.stringify(scenario));
+    },
+    deleteOrder: function(order) {
+        connection.send('deleteOrder:' + JSON.stringify(order));
     }
 };
 
@@ -79,12 +85,20 @@ const Scenarios = {
         runScenarioSelected: function() {
             protocole.clear();
             protocole.init(this.code.getValue());
-            app.scenarioRun = JSON.parse(this.code.getValue());
+            data = JSON.parse(this.code.getValue());
+            for (item of data.products) {
+                item.status = "Waiting"
+            }
+            for (item of data.orders) {
+                item.status = "Waiting"
+            }
+            app.scenarioRun = data;
         }
     },
     data: () => {
         return {
             scenarios: [
+                { name: "exemple" },
                 { name: "ps0" },
 				{ name: "ps1" },
                 { name: "ps2" },
@@ -97,11 +111,9 @@ const Scenarios = {
 const Workshop = { 
     template: '#workshop',
     methods: {
-
-    },
-    computed: {
-        scenarioRun: function() {
-            return app ? app.scenarioRun : null;
+        deleteOrder: function(index) {
+            protocole.deleteOrder(this.$root.scenarioRun.orders[index]);
+            this.$root.scenarioRun.orders.splice(index, 1);
         }
     }
 };
