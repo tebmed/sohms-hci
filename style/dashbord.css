@@ -68,5 +68,5 @@ h1 {
 }
 
 #editor {
-  height: calc(100% - 6rem);
+  height: calc(100vh - 10rem);
 }

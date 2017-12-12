@@ -2,11 +2,17 @@
 var connection = new WebSocket('ws://localhost:8003');
 
 connection.onopen = function () {
-  connection.send('Ping');
+    connection.send("Ping");
 };
 
 connection.onmessage = function (e) {
-    console.log("Server: "+e.data);
+    $.post('logger.php',{
+        data: {
+            message: e.data,
+            filename: app.filename
+        }
+    });
+    app.logs += e.data;
 };
 
 connection.onerror = function (error) {
@@ -47,6 +53,7 @@ const Scenarios = {
             this.selected = filename;
 
             var editor = $("#editor");
+            
             if (editor.children()) 
                 editor.children().remove();
             var scope = this;
@@ -55,13 +62,16 @@ const Scenarios = {
                 method: "GET",
                 url: "js/scenarios/"+ filename + ".json",
                 success: (data) => {
+                    if (typeof data == "string") {
+                        data = JSON.parse(data);
+                    }
                     CodeMirror($('#editor')[0], {
-                        value: data,
+                        value: JSON.stringify(data,null,4),
                         mode:  "javascript",
                         theme: "dracula",
                         lineNumbers: true
                     });
-                    this.scenario = JSON.parse(data);
+                    this.scenario = data;
                 },
                 error: (err) => {
                     console.log(err);
@@ -78,6 +88,9 @@ const Scenarios = {
             scenario: null,
             scenarios: [
                 {
+                    name: "ps0"
+                },
+                {
                     name: "ps1"
                 },
                 {
@@ -91,7 +104,17 @@ const Scenarios = {
         } 
     }
 };
-const Workshop = { template: '<h1>Workshop</h1>' }
+const Workshop = { 
+    template: '#workshop',
+    methods: {
+
+    },
+    data: () => {
+        return {
+            logs: null
+        }
+    }
+};
 
 const routes = [
     { path: '/scenarios', component: Scenarios },
@@ -105,6 +128,20 @@ var app = new Vue({
     router,
     el: '#app',
     data: {
-        currentRoute: window.location.pathname
+        filename: null,
+        logs: null
+    },
+    computed: {
+        moment: function() {
+            return window.moment;
+        }
+    },
+    created: function() {
+        this.generateFileName();
+    },
+    methods: {
+        generateFileName: function() {
+            this.filename = this.moment().format();
+        }
     }
 });
