@@ -1,42 +1,42 @@
 {
     "ressources": [
         {
-            id_r: 1,
-            nb: 1,
-            services:[
+            "id_r": 1,
+            "nb": 1,
+            "services":[
                 1
             ]
         },
         {
-            id_r: 2,
-            nb: 1,
-            services:[
+            "id_r": 2,
+            "nb": 1,
+            "services":[
                 2
             ]
         },
         {
-            id_r: 3,
-            nb: 1,
-            services:[
+            "id_r": 3,
+            "nb": 1,
+            "services":[
                 3
             ]
         }
     ],
     "services": [
         {
-            id_s: 1,
-            name_s:deplacement,
-            path_s: random/deplacement1.java
+            "id_s": 1,
+            "name_s":deplacement,
+            "path_s": random/deplacement1.java
         },
         {
-            id_s: 2,
-            name_s:peindre,
-            path_s: random/peindre1.java
+            "id_s": 2,
+            "name_s":peindre,
+            "path_s": random/peindre1.java
         },
         {
-            id_s: 3,
-            name_s:souder,
-            path_s: random/souder1.java
+            "id_s": 3,
+            "name_s":souder,
+            "path_s": random/souder1.java
         }
     ],
     "perturbations": [
@@ -47,15 +47,15 @@
     ],
     "orders": [
         {
-            id_p:1 ,
-            nb :1
+            "id_p":1 ,
+            "nb" :1
         }
     ],
     "products": [
         {
-            id_p:1 ,
-            description: "faire un joli produit necessitant un deplacement",
-            services:[
+            "id_p":1 ,
+            "description": "faire un joli produit necessitant un deplacement",
+            "services":[
                 [2],
                 [1]
             ]
