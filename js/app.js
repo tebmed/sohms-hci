@@ -6,10 +6,11 @@ connection.onopen = function () {
 };
 
 connection.onmessage = function (e) {
-    $.post('logger.php',{
+    $.post('scenarios.php',{
         data: {
             message: e.data,
-            filename: app.filename
+            filename: app.filename,
+            action: 'log'
         }
     });
     app.logs[app.indexLogs++] = e.data;
@@ -45,9 +46,21 @@ Vue.component('navigator', {
 const Scenarios = {
     template: '#scenarios',
     mounted: function() {
-        // Change selected item
-        this.selected = this.scenarios[0].name;
-        this.loadScenario(this.scenarios[0].name);
+        var self = this;
+
+        // Search scenario available
+        $.get('scenarios.php', 
+            {
+                action: 'list'
+            },
+            (data) => {
+                self.scenarios = JSON.parse(data);
+                
+                // Change selected item
+                self.selected = self.scenarios[0];
+                self.loadScenario(self.scenarios[0]);
+            }
+        );
     },
     methods: {
         loadScenario: function(filename) {
@@ -59,9 +72,11 @@ const Scenarios = {
             if (editor.children())
                 editor.children().remove();
 
+			var self = this;
+
             $.ajax({
                 method: "GET",
-                url: "js/scenarios/"+ filename + ".json",
+                url: "scenarios/"+ filename + ".json",
                 success: (data) => {
 					if (typeof data == "string") {
 						data = JSON.parse(data);
@@ -72,11 +87,35 @@ const Scenarios = {
                         theme: "dracula",
 						lint: true,
                         lineNumbers: true,
-						gutters: ['CodeMirror-lint-markers']
-                    });
+						gutters: ['CodeMirror-lint-markers'],
+                    })
+					this.code.on('changes',function() {
+						self.verifyScenario();
+					});
+                    self.verifyScenario();
+
+                    self.saveScenario(filename);
                 },
                 error: (err) => {
                     console.log(err);
+                }
+            });
+        },
+		verifyScenario: function() {
+			this.errors = Janet.validate(this.code.getValue(),template);
+        },
+        saveScenario: function(filename) {
+            var codeEditor = this.code;
+            $('#editor')[0].addEventListener('keydown', function(e) {
+                if ((e.keyCode == 83 & e.ctrlKey) || (e.keyCode == 83 & e.metaKey)) {
+                    e.preventDefault();
+                    $.post('scenarios.php',{
+                        data: {
+                            json: JSON.stringify(codeEditor.getValue()),
+                            filename: filename,
+                            action: 'scenario'
+                        }
+                    });
                 }
             });
         },
@@ -94,18 +133,13 @@ const Scenarios = {
     },
     data: () => {
         return {
-            scenarios: [
-                { name: "exemple" },
-                { name: "ps0" },
-				{ name: "ps1" },
-                { name: "ps2" },
-                { name: "ps3" }
-            ],
-            selected: null
+            scenarios: [],
+            selected: null,
+			errors: true
         }
     }
 };
-const Workshop = { 
+const Workshop = {
     template: '#workshop',
     methods: {
         deleteOrder: function(index) {
