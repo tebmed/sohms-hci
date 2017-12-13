@@ -59,7 +59,7 @@
                                 <div id="editor"></div>
                             </div>
                             <div class="col-sm-12 col-md-3">
-                                <button @click="runScenarioSelected">Run scenario</button>
+                                <button @click="runScenarioSelected" class="btn btn-success">Run scenario</button>
                             </div>
                         </div>
                     </div>
@@ -85,12 +85,14 @@
                         <h2>Orders</h2>
                         <table class="table">
                             <tr class="thead-dark">
+                                <th>#</th>
                                 <th>Product</th>
                                 <th>Status</th>
                                 <th>Delete</th>
                             </tr>
                             <tr v-for="(item, index) of this.$root.scenarioRun.orders">
                                 <template v-for="el of $parent.$root.scenarioRun.products">
+                                    <td v-if="item.id === el.id">{{ item.id }}</td>
                                     <td v-if="item.id === el.id">{{ el.description }}</td>
                                     <td v-if="item.id === el.id">{{ item.status }}</td>
                                     <td v-if="item.id === el.id"><button class="btn btn-danger" style="padding: 0px 5px;" @click="deleteOrder(index)">x</button></td>
@@ -99,7 +101,8 @@
                         </table>
                     </div>
                     <div class="col-sm-12 col-md-6">
-                        
+                        <h2>Time</h2>
+                        <span>{{ this.$root.time() }}</span>
                     </div>
                 </div>
                 <h2 v-if="this.$root.scenarioRun === null">No scenario running</h2>

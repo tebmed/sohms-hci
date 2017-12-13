@@ -13,9 +13,7 @@ connection.onmessage = function (e) {
         }
     });
     app.logs[app.indexLogs++] = e.data;
-    if (e.data === "order:1:end") {
-        app.scenarioRun.orders[0].status = "end";
-    }
+    app.handleEvent(e.data);
 };
 
 connection.onerror = function (error) {
@@ -86,13 +84,12 @@ const Scenarios = {
             protocole.clear();
             protocole.init(this.code.getValue());
             data = JSON.parse(this.code.getValue());
-            for (item of data.products) {
-                item.status = "Waiting"
-            }
-            for (item of data.orders) {
-                item.status = "Waiting"
-            }
+
+            for (item of data.orders)
+                item.status = "Waiting";
+            
             app.scenarioRun = data;
+            router.push("/workshop");
         }
     },
     data: () => {
@@ -146,6 +143,19 @@ var app = new Vue({
     methods: {
         generateFileName: function() {
             this.filename = this.moment().format();
+        },
+        handleEvent: function(data) {
+            var array = data.split(':');
+            if (array[0] === "order") {
+                for (item of this.scenarioRun.orders) {
+                    if (item.id === parseInt(array[1])) {
+                        item.status = array[2];
+                    }
+                }
+            }
         }
+    },
+    mounted: () => {
+        router.push('/scenarios');
     }
 });
