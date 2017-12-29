@@ -16,6 +16,10 @@ var template = {
 						"type": "integer"
 					},
 					{
+						"name": "name",
+						"type": "string"
+					},
+					{
 						"name": "services",
 						"type": "array",
 						"item": {
