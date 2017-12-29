@@ -146,7 +146,7 @@ const Scenarios = {
         },
         runScenarioSelected: function() {
             protocole.clear();
-            protocole.init(this.code.getValue());
+            protocole.init(this.code.getValue(" "));
             data = JSON.parse(this.code.getValue());
 
             for (item of data.orders) {
