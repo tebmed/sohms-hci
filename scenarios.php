@@ -12,7 +12,14 @@ if (isset($_POST['data'])) {
         $filename = $_POST['data']['filename'];
         $data = $_POST['data']['json'];
 
+        echo json_decode($data);
+
         echo file_put_contents('scenarios/'.$filename.'.json', json_decode($data)) ? 'ok' : 'nok';
+    } else if ($action == 'add') {
+        $filename = $_POST['data']['filename'];
+        $data = $_POST['data']['json'];
+
+        echo file_put_contents('scenarios/'.$filename.'.json', '{}') ? 'ok' : 'nok';
     }
 } else {
     $action = $_GET['action'];

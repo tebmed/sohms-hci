@@ -50,12 +50,12 @@ Vue.component('modal', {
             var self = this;
             $.post('scenarios.php',{
                 data: {
-                    json: "{}",
+                    json: "",
                     filename: self.filename,
-                    action: 'scenario'
+                    action: 'add'
                 }
             }, () => {
-
+                this.$parent.refreshList();
             });
             this.$emit('close');
         }
@@ -70,23 +70,24 @@ Vue.component('modal', {
 const Scenarios = {
     template: '#scenarios',
     mounted: function() {
-        var self = this;
-       // this.refreshList();
-        // Search scenario available
-        $.get('scenarios.php', 
-            {
-                action: 'list'
-            },
-            (data) => {
-                self.scenarios = JSON.parse(data);
-                
-                // Change selected item
-                self.selected = self.scenarios[0];
-                self.loadScenario(self.scenarios[0]);
-            }
-        );
+        this.refreshList();
     },
     methods: {
+        refreshList: function() {
+            var self = this;
+            $.get('scenarios.php', 
+                {
+                    action: 'list'
+                },
+                (data) => {
+                    self.scenarios = JSON.parse(data);
+                    
+                    // Change selected item
+                    self.selected = self.scenarios[0];
+                    self.loadScenario(self.scenarios[0]);
+                }
+            );
+        },
         loadScenario: function(filename) {
 
             // Change selected item
