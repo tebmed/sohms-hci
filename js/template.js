@@ -19,7 +19,17 @@ var template = {
 						"name": "services",
 						"type": "array",
 						"item": {
-							"type": "integer"
+							"type": "object",
+							"elements": [
+								{
+									"name": "id",
+									"type": "integer"
+								},
+								{
+									"name": "duration",
+									"type": "integer"
+								}
+							]
 						}
 					}
 				]
@@ -38,14 +48,6 @@ var template = {
 					{
 						"name": "name",
 						"type": "string"
-					},
-					{
-						"name": "path",
-						"type": "string"
-					},
-					{
-						"name": "duration",
-						"type": "integer"
 					}
 				]
 			}
@@ -78,8 +80,21 @@ var template = {
 						"type": "integer"
 					},
 					{
-						"name": "nb",
-						"type": "integer"
+						"name": "products",
+						"type": "array",
+						"item": {
+							"type": "object",
+							"elements": [
+								{
+									"name": "id",
+									"type": "integer" 
+								},
+								{
+									"name": "nb",
+									"type": "integer"
+								}
+							]
+						}
 					}
 				]
 			}

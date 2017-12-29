@@ -28,8 +28,8 @@ const protocole = {
     init: function(scenario) {
         connection.send('init:' + JSON.stringify(scenario));
     },
-    deleteOrder: function(order) {
-        connection.send('deleteOrder:' + JSON.stringify(order));
+    deleteProductOfOrder: function(order_index, product_index) {
+        connection.send('deleteProductOfOrder:order:'+order_index+":product:"+product_index);
     }
 };
 
@@ -41,13 +41,37 @@ Vue.component('navigator', {
         selected: String
     },
     template: '#navigator'
+});
+
+Vue.component('modal', {
+    template: "#modal-template",
+    methods: {
+        addScenario: function() {
+            var self = this;
+            $.post('scenarios.php',{
+                data: {
+                    json: "{}",
+                    filename: self.filename,
+                    action: 'scenario'
+                }
+            }, () => {
+
+            });
+            this.$emit('close');
+        }
+    },
+    data: () => {
+        return {
+            filename: ""
+        }
+    }
 })
 
 const Scenarios = {
     template: '#scenarios',
     mounted: function() {
         var self = this;
-
+       // this.refreshList();
         // Search scenario available
         $.get('scenarios.php', 
             {
@@ -124,8 +148,14 @@ const Scenarios = {
             protocole.init(this.code.getValue());
             data = JSON.parse(this.code.getValue());
 
-            for (item of data.orders)
+            for (item of data.orders) {
                 item.status = "Waiting";
+                for(product of item.products) {
+                    product.status = "Waiting";
+                    product.start = "";
+                    product.end = "";
+                }
+            }
             
             app.scenarioRun = data;
             router.push("/workshop");
@@ -135,16 +165,17 @@ const Scenarios = {
         return {
             scenarios: [],
             selected: null,
-			errors: true
+            errors: true,
+            showModal: false
         }
     }
 };
 const Workshop = {
     template: '#workshop',
     methods: {
-        deleteOrder: function(index) {
-            protocole.deleteOrder(this.$root.scenarioRun.orders[index]);
-            this.$root.scenarioRun.orders.splice(index, 1);
+        deleteProductOfOrder: function(order_index, product_index) {
+            protocole.deleteProductOfOrder(order_index, product_index);
+            this.$root.scenarioRun.orders[order_index].products.splice(product_index, 1);
         }
     }
 };
