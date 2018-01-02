@@ -26,6 +26,7 @@ const protocole = {
         connection.send('clear');
     },
     init: function(scenario) {
+        var data = JSON.stringify(scenario);
         connection.send('init:' + data.replace(/\s/g, ""));
     },
     deleteProductOfOrder: function(order_index, product_index) {
