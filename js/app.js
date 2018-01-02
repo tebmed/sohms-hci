@@ -2,7 +2,7 @@
 var connection = new WebSocket('ws://localhost:8003');
 
 connection.onopen = function () {
-    connection.send("Ping");
+   // connection.send("Ping");
 };
 
 connection.onmessage = function (e) {
@@ -26,7 +26,7 @@ const protocole = {
         connection.send('clear');
     },
     init: function(scenario) {
-        connection.send('init:' + JSON.stringify(scenario));
+        connection.send('init:' + data.replace(/\s/g, ""));
     },
     deleteProductOfOrder: function(order_index, product_index) {
         connection.send('deleteProductOfOrder:order:'+order_index+":product:"+product_index);
