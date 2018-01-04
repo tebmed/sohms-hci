@@ -109,30 +109,11 @@
                                         <td>{{ product.status }}</td>
                                         <td>{{ product.start }}</td>
                                         <td>{{ product.end }}</td>
-                                        <td><button class="btn btn-danger" style="padding: 0px 5px;" @click="deleteProductOfOrder(order_index, product_index)">x</button></td>
+                                        <td><button class="btn btn-danger" style="padding: 0px 5px;" v-if="product.status !== 'Cancel'" @click="deleteProductOfOrder(order_index, product_index)">x</button></td>
                                     </tr>
                                 </template>
                             </table>
                         </template>
-<!--
-                        <table class="table">
-                            <tr class="thead-dark">
-                                <th>#</th>
-                                <th>Product</th>
-                                <th>Status</th>
-                                <th>Delete</th>
-                            </tr>
-                            <tr class="thead-light" v-for="(item, index) of this.$root.scenarioRun.orders">
-                                <template v-for="(product, i_product) of item.products">
-                                    <tr v-for="el of $parent.$root.scenarioRun.products" v-if="product.id === el.id">
-                                        <td>{{ item.id }}</td>
-                                        <td>{{ el.description }}</td>
-                                        <td>{{ item.status }}</td>
-                                        <td><button class="btn btn-danger" style="padding: 0px 5px;" @click="deleteOrder(index)">x</button></td>
-                                    </tr>
-                                </template>
-                            </tr>
-                        </table>-->
                     </div>
                     <div class="col-sm-12 col-md-6">
                     </div>

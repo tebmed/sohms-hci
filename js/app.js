@@ -29,7 +29,6 @@ const protocole = {
         var data = JSON.stringify(scenario);
         data = data.replace(/\s/g, "");
         data = data.replace(/\\/g, "");
-        console.log(data);
         connection.send('init:' + data);
     },
     deleteProductOfOrder: function(order_index, product_index) {
@@ -180,7 +179,7 @@ const Workshop = {
     methods: {
         deleteProductOfOrder: function(order_index, product_index) {
             protocole.deleteProductOfOrder(order_index, product_index);
-            this.$root.scenarioRun.orders[order_index].products.splice(product_index, 1);
+            this.$root.scenarioRun.orders[order_index].products[product_index].status = "Cancel";
         }
     }
 };
