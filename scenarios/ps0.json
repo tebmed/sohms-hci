@@ -1,12 +1,16 @@
 {
     "ressources": [
         {
-            "id": 2,
+            "id": 1,
             "nb": 1,
             "name": "m1",
             "services": [
                 {
-                    "id": 3,
+                    "id": 1,
+                    "duration": 10
+                },
+                {
+                    "id": 2,
                     "duration": 10
                 }
             ]
@@ -18,7 +22,15 @@
             "services": [
                 {
                     "id": 3,
-                    "duration": 10
+                    "duration": 20
+                },
+                {
+                    "id": 4,
+                    "duration": 20
+                },
+                {
+                    "id": 1,
+                    "duration": 20
                 }
             ]
         },
@@ -29,23 +41,74 @@
             "services": [
                 {
                     "id": 3,
-                    "duration": 10
+                    "duration": 20
+                },
+                {
+                    "id": 4,
+                    "duration": 20
+                },
+                {
+                    "id": 2,
+                    "duration": 20
                 }
             ]
+        },
+        {
+            "id": 4,
+            "nb": 1,
+            "name": "m4",
+            "services": [
+                {
+                    "id": 4,
+                    "duration": 20
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "nb": 1,
+            "name": "m5",
+            "services": [
+                {
+                    "id": 1,
+                    "duration": 5
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "nb": 1,
+            "name": "m6",
+            "services": [
+                {
+                    "id": 2,
+                    "duration": 60
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "nb": 1,
+            "name": "m7",
+            "services": []
         }
     ],
     "services": [
         {
             "id": 1,
-            "name": "deplacement"
+            "name":"deplacement"
         },
         {
             "id": 2,
-            "name": "peindre"
+            "name":"peindre"
         },
         {
             "id": 3,
-            "name": "souder"
+            "name":"souder"
+        },
+        {
+            "id": 4,
+            "name":"peindre"
         }
     ],
     "perturbations": [
@@ -60,45 +123,22 @@
             "products": [
                 {
                     "id": 1,
-                    "nb": 2
-                },
-                {
-                    "id": 1,
-                    "nb": 2
-                }
-            ]
-        },
-      {
-            "id": 2,
-            "products": [
-                {
-                    "id": 1,
-                    "nb": 2
-                },
-                {
-                    "id": 2,
-                    "nb": 2
+                    "nb": 1
                 }
             ]
         }
     ],
     "products": [
         {
-            "id": 1,
+            "id":1 ,
             "description": "faire un joli produit necessitant un deplacement",
-            "services": [
-                [ 2 ], [ 1 ]
-            ]
-        },
-      {
-            "id": 2,
-            "description": "Autre produit",
-            "services": [
-                [ 2 ], [ 1 ]
+            "services":[
+                [4],
+                [2]
             ]
         }
     ],
-    "layoutSpec": {
+        "layoutSpec": {
         "nodes": [
             {
                 "id": 1,
