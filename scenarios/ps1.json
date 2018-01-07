@@ -186,21 +186,36 @@
             "id": 1,
             "description": "A",
             "services": [
-                [ 2 ], [ 1 ]
+                [
+                    2
+                ],
+                [
+                    1
+                ]
             ]
         },
         {
             "id": 2,
             "description": "B",
             "services": [
-                [ 2 ], [ 1 ]
+                [
+                    2
+                ],
+                [
+                    1
+                ]
             ]
         },
         {
             "id": 3,
             "description": "C",
             "services": [
-                [ 2 ], [ 1 ]
+                [
+                    2
+                ],
+                [
+                    1
+                ]
             ]
         }
     ],
