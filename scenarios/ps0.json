@@ -27,10 +27,6 @@
                 {
                     "id": 4,
                     "duration": 20
-                },
-                {
-                    "id": 1,
-                    "duration": 20
                 }
             ]
         },
@@ -68,12 +64,7 @@
             "id": 5,
             "nb": 1,
             "name": "m5",
-            "services": [
-                {
-                    "id": 1,
-                    "duration": 5
-                }
-            ]
+            "services": []
         },
         {
             "id": 6,
