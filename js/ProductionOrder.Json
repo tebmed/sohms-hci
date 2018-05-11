@@ -1,0 +1,61 @@
+{
+   "id" : 1,
+   "Priority" : "NORMAL_PRIORITY",
+   "MaxParallelUnits" : 2,
+   "Product" :[
+    {
+      "id" : 1,
+      "ProcessModel" : [
+         {
+             "recipe" : [
+                {
+                   "MServiceSpecifications" :[
+                     {
+                       "id" : 1,
+                       "Mservice" : {
+                          "Name" : "SupplyBase",
+                          "Ontology" : "LegoBlocks",
+                          "Category" : "Supply",
+                          "Taxonomy" : "sometax",
+                          "Description" : "Supply Lego Base of a certain color to Pallet",
+                          "Parameters" :[
+                             {
+                                 "Name" : "color",
+                                 "Type" : "String"
+                             }
+                          ], 
+                          "Attributes" :[
+                             {
+                                 "Name" : "Cmax",
+                                 "Type" : "Double"
+                             },
+                             {
+                                 "Name" : "Quality",
+                                 "Type" : "String"
+                             }
+                          ], 
+                       },
+                       "Parameters" : [
+                          {
+                             "Name" : "color",
+                             "Type" : "String",
+                             "Value" : "red"
+                          }
+                       ],
+                       "Attributes" : [
+                       ]
+                     },
+                     {
+                     },
+                     {
+                     },
+                     {
+                     }
+                   ]
+                }
+             ],
+         }
+      ],
+    }  
+   ]
+}
